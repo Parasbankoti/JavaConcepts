@@ -1,9 +1,10 @@
 import java.util.concurrent.*;
+import java.util.function.Predicate;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
 
         ThreadPoolExecutor threadPool = new ThreadPoolExecutor(2, 3, 10, TimeUnit.SECONDS,
                 new ArrayBlockingQueue<>(3),new ThreafFac(), new CustomThreadPoolFullException() );
@@ -22,6 +23,44 @@ public class Main {
 
         }
         threadPool.shutdown();
+
+        ThreadPoolExecutor th2 = new ThreadPoolExecutor(2,3,10,
+                TimeUnit.SECONDS,new ArrayBlockingQueue<>(2),new ThreafFac(), new CustomThreadPoolFullException() );
+
+        // Future is used for storing the data returned by thread after executing the task
+        Future<String> future = th2.submit(()->{
+            // do some work
+            return "paras";
+        });
+
+        // to get this task we use future.get()
+        // but this stops the calling thread from executing, in this case main method is stopped until future finishes executing
+
+        // to stop the blocking issue in java 9 completableFuture was presented
+        // it provide various upgrades over future like :
+        // exception handling
+        // chaining futures
+        // main methids used are : thenApply, thenCompose,
+        // thenApplyAsync is used if we want other thread to execute the work after then apply call
+
+        // predicate : Predicate<T>  boolean
+
+
+
+
+
+
+        CompletableFuture<String> futureString = CompletableFuture.supplyAsync(()->{
+            return "Paras";
+        }).thenApply((s) -> {
+            s+= " is a good boy";
+            return s;
+        }).thenApply((s) ->{
+            s= s.toUpperCase();
+            return s;
+        });
+
+        System.out.println(futureString.get());
 
     }
 }

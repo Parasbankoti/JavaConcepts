@@ -5,6 +5,9 @@ public class MainMarker {
     public static void main(String[] args) {
         //  rather to mark or tag the class with a particular characteristic or capability.
 
+        // java.io.Serializable
+        //Serialization is crucial for various applications like saving application state, RMI, and caching.
+
         CheckClass c = new CheckClass("Paras","p.bankoti@gmail.com");
         HelperClass h = new HelperClass("Amit","amit@samsung.com");
 

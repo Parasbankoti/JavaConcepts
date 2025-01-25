@@ -35,5 +35,12 @@ public class MainImmutable {
         // will get list without above element added
         System.out.println(ic.getList());
 
+
+        // Immutable String
+        // == (for primitive datatypes it compares values, and for non-primitive datatypes it compares reference)
+        int x=10,y=10;
+        String s1 = new String("paras");
+        String s2 = "paras";
+        System.out.println((x == y ) + " == " );
     }
 }
